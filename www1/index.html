@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>GeoLocation Maps</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="js/jquery.mobile-1.4.5.css">
+	<script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile-1.4.5.js"></script>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+  <script src="leaflet/leaflet.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet-src.js"></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet"></script>
+
+    <!-- Esri Leaflet Geocoder -->
+   
+    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
+
+	<script src="cordova.js"></script>
+
+<body>
+    <body>
+        <!-- Homepage -->
+        <div data-role="page" id="home" data-theme="b">
+    
+    
+            <div data-role="header">
+                <h1>GeoLocation</h1>
+            </div>
+    
+    
+    
+            <div class="nav">
+                <div data-role="navbar">
+    
+    
+                    <ul>
+    
+                        <li>
+    
+    
+                            <a href="#" class="ui-btn ui-icon-home ui-btn-icon-top">My Location</a>
+                        </li>
+                        <li>
+    
+    
+                            <a href="#calculator" class="ui-btn ui-icon-grid ui-btn-icon-top">Search Location</a><br>
+                        </li>
+    
+                        <li>
+    
+    
+                            <a href="#help" class="ui-btn ui-icon-info ui-btn-icon-top">View More Details</a><br>
+    
+                        </li>
+    
+                </div>
+            </div>
+    
+            <div id="mapid" style="width: 600px; margin-left:400px ; height: 400px;"></div>
+  <script type="text/javascript">
+   
+
+      //missing code 1: call to getCurrentPosition function
+
+      navigator.geolocation.getCurrentPosition(userLocated, locationError);
+      //missing code 2: define function userLocated
+      function userLocated(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+       
+
+        var mymap = L.map('mapid').setView([latitude, longitude], 16);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+          maxZoom: 19,
+          attribution: 'Map data &copy;' +
+            '<a href="https://www.openstreetmap.org/">OpenStreetMap</a>' +
+            'contributors,<a href="https://creativecommons.org/licenses' +
+            '/by-sa/2.0/">CC-BY-SA</a>,Imagery © <a href="https://' +
+            'www.mapbox.com/">Mapbox</a>',
+          id: 'mapbox.streets',
+          accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYyc' +
+            'XBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+        }).addTo(mymap);
+        var marker = L.marker([latitude, longitude]).addTo(mymap);
+
+        marker.bindPopup("Hello YEDISH").openPopup();
+
+        var circle = L.circle([latitude, longitude], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 100
+      }).addTo(mymap);
+      circle.bindPopup("Your Location");
+      }
+    
+
+
+      function locationError(error) {
+        switch(error.code) {
+case error.PERMISSION_DENIED:
+alert("Permission Denied- " + error.message);
+break;
+case error.POSITION_UNAVAILABLE:
+alert("Position Not Available- "+ error.message);
+break;
+case error.TIMEOUT:
+alert("Request Time out- "+ error.message);
+break;
+}
+}//end the function
+//end the else block
+                 
+              
+
+  </script>
+</body>
+          
+            </br>
+            <div data-role="footer">
+               <h1>Leaflet API</h1> 
+            </div>
+    
+    
+        </div>
+    
+        <!-- Calculator Page -->
+    
+        <div data-role="page" id="calculator" data-theme="b">
+    
+            <div data-role="header">
+                <h1>GeoLocation</h1>
+            </div>
+    
+    
+            <div class="nav">
+                <div data-role="navbar">
+    
+    
+                    <ul>
+    
+                        <li>
+    
+    
+                            <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-top">My Location</a>
+                        </li>
+                        <li>
+    
+    
+                            <a href="#" class="ui-btn ui-icon-grid ui-btn-icon-top">Search Location</a><br>
+                        </li>
+                        <li>
+    
+    
+                            <a href="#help" class="ui-btn ui-icon-info ui-btn-icon-top">View More Details</a><br>
+    
+                        </li>
+    
+                </div>
+            </div>
+            <div id="map" style="width: 600px; margin-left:400px ; height: 400px;"></div>
+            
+            <script type="text/javascript">
+   
+
+                //missing code 1: call to getCurrentPosition function
+          
+                navigator.geolocation.getCurrentPosition(userLocated, locationError);
+                //missing code 2: define function userLocated
+                function userLocated(position) {
+                  var latitude = position.coords.latitude;
+                  var longitude = position.coords.longitude;
+                 
+          
+                  var map = L.map('map').setView([latitude, longitude], 16);
+                  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                    maxZoom: 19,
+                    attribution: 'Map data &copy;' +
+                      '<a href="https://www.openstreetmap.org/">OpenStreetMap</a>' +
+                      'contributors,<a href="https://creativecommons.org/licenses' +
+                      '/by-sa/2.0/">CC-BY-SA</a>,Imagery © <a href="https://' +
+                      'www.mapbox.com/">Mapbox</a>',
+                    id: 'mapbox.streets',
+                    accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYyc' +
+                      'XBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+                  }).addTo(map);
+                  var marker = L.marker([latitude, longitude]).addTo(map);
+                  var tiles = L.esri.basemapLayer("Streets").addTo(map);
+                  // create the geocoding control and add it to the map
+      var searchControl = L.esri.Geocoding.geosearch().addTo(map);
+
+// create an empty layer group to store the results and add it to the map
+var results = L.layerGroup().addTo(map);
+
+// listen for the results event and add every result to the map
+searchControl.on("results", function (data) {
+  results.clearLayers();
+  for (var i = data.results.length - 1; i >= 0; i--) {
+    results.addLayer(L.marker(data.results[i].latlng));
+  }
+});
+                  marker.bindPopup("Hello YEDISH").openPopup();
+          
+                  var circle = L.circle([latitude, longitude], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: 100
+                }).addTo(map);
+                circle.bindPopup("Your Location");
+                }
+              
+          
+          
+                function locationError(error) {
+                  switch(error.code) {
+          case error.PERMISSION_DENIED:
+          alert("Permission Denied- " + error.message);
+          break;
+          case error.POSITION_UNAVAILABLE:
+          alert("Position Not Available- "+ error.message);
+          break;
+          case error.TIMEOUT:
+          alert("Request Time out- "+ error.message);
+          break;
+          }
+          }//end the function
+          //end the else block
+                           
+                        
+          
+            </script>
+    
+          
+                    </br>
+                    <div data-role="footer">
+                        <h1>Leaflet API</h1>
+                    </div>
+                </div>
+    
+                    <div data-role="page" id="help" data-theme="b">
+    
+    
+                        <div data-role="header">
+                            <h1>GeoLocation</h1>
+                        </div>
+    
+    
+                        <div class="nav">
+                            <div data-role="navbar">
+    
+    
+                                <ul>
+    
+                                    <li>
+    
+    
+                                        <a href="#home" class="ui-btn ui-icon-home ui-btn-icon-top">My Location</a>
+                                    </li>
+                                    <li>
+    
+    
+                                        <a href="#calculator" class="ui-btn ui-icon-grid ui-btn-icon-top">Search Location</a><br>
+                        </li>
+                                    <li>
+    
+    
+                                        <a href="#" class="ui-btn ui-icon-info ui-btn-icon-top">View More Details</a><br>
+    
+                        </li>
+    
+                            </div>
+                        </div></br>
+    
+    
+                        <div id="mapping" style="width: 600px; margin-left:400px ; height: 400px;"></div>
+
+                        <script type="text/javascript">
+   
+
+                            //missing code 1: call to getCurrentPosition function
+                      
+                            navigator.geolocation.getCurrentPosition(userLocated, locationError);
+                            //missing code 2: define function userLocated
+                            function userLocated(position) {
+                              var latitude = position.coords.latitude;
+                              var longitude = position.coords.longitude;
+                             
+                      
+                              var map1 = L.map('mapping').setView([latitude, longitude], 16);
+                              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map1);
+                             
+                            }
+                              var marker = L.marker([latitude, longitude]).addTo(map1);
+                          var geocodeService = L.esri.Geocoding.geocodeService();
+                        
+                          map1.on('click', function (e) {
+                            geocodeService.reverse().latlng(e.latlng).run(function (error, result) {
+                              if (error) {
+                                return;
+                              }
+                        
+                              L.marker(result.latlng).addTo(map1).bindPopup(result.address.Match_addr).openPopup();
+                            });
+                          });
+                        </script>
+                        </br></br>
+    
+                       
+    
+    
+                        <div data-role="footer">
+                            <h1>Leaflet API</h1>
+                        </div>
+                    </div>
+                </div>
+    
+              
+    
+    </body>
+    
+    </html>
+    
